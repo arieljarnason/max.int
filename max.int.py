@@ -1,14 +1,10 @@
 num_int = int(input("Input a number: "))    # Do not change this line
+max_int = num_int
 
-while 1:
-    num_int2 = int(input("Input another number: "))
-    numbers.append(num_int2)
-    numbers = [num_int, 0]
-    if num_int2 < 0:
-     break
-
-    max_int = max(numbers)
-
+while num_int >= 0:
+    num_int = int(input("Input a number: "))
+    if num_int > max_int:
+        max_int = num_int
 
 print("The maximum is", max_int)    # Do not change this line
 
