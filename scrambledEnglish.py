@@ -12,26 +12,29 @@ def get_word_string(filename):
         with open(filename, 'r', encoding='utf-8') as dataFile:
             for line in dataFile: 
                 wordString += line # add each line of words to the word string 
-                output_list = make_list(wordString)
+                output_list = make_list(wordString) # use the "make_list" function to... 
+                                                    # ...create list out of strings
 
     except FileNotFoundError:
-        print("File", filename, "not found", end="")
+        print("File", filename, "not found", end="") 
         return ()   
 
     return output_list
 
 def make_list(string_in):
-    
-    string_out = string_in.split() #convert string to list seperated by ' '
+    """Converts string to list seperated by spaces"""
+    newlist = string_in.split() 
 
-    return string_out
+    return newlist
 
 def word_randomize(word):
     if len(word) <= 3:
         return word
+        #don't bother with short words
     punctuation = ',.:;-'
     if punctuation in word:
         first, mid, end = word[0], word[1:-1], word[-2]
+        #take first and last, as well as the punctuation
     else:
         first, mid, end = word[0], word[1:-1], word[-1]
         #take first and last letter from word
@@ -39,30 +42,31 @@ def word_randomize(word):
     chars = list(mid); random.shuffle(chars)
         #randomize mid section of word
 
-    mid = ''.join(chars); word = first+mid+end
+    mid = ''.join(chars)
         #merge word back together
     
-    return word
+    return first+mid+end
 
 
 def scramble_string(word_string):
-    list_of_words = word_string #just for clarity
-    randomized_string = ''
-    i = 0 #sloppy way to send each word to randomize, need to fix
+    list_of_words, randomized_string, i = word_string, '', 0 
+    #just for clarity, rename the list "list of words"
+    #sloppy way to send each word to randomize
+    
     while i < len(list_of_words):
         word = list_of_words[i]
         word_randomize(word)
         i += 1 
         randomized_string += (word_randomize(word) + ' ')
+        # send each word to randomize function
+        # convert list back to string
 
-    return randomized_string #convert list back to string
-
+    return randomized_string 
 
 #MAIN PROGRAM
 
 random.seed(10)
 filename = input("Enter name of file: ")
-# filename = "fathers brought us forth 'murica, yes." #delete
 word_string = get_word_string(filename) #fetches string from file
 scrambled_string = scramble_string(word_string) #scrambles words in string
 print(scrambled_string) #prints scrambled version
