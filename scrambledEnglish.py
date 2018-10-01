@@ -5,24 +5,26 @@ import string
 
 def get_word_string(filename):
     """Opens text file"""
-    while 1:
-        try:
-            dataFile = open(filename,"r")
-            break
-        except FileNotFoundError:
-            print("File X not found")
-            break
-            
-    # dataFile = "Fathers brought us forth America, yes."
-    
+
     wordString = ''	# start with an empty string of words 
-    for line in dataFile: wordString += line # add each line of words to the word string 
-    output_list = make_list(wordString)
+
+    try:
+        with open(filename, 'r', encoding='utf-8') as dataFile:
+            for line in dataFile: 
+                wordString += line # add each line of words to the word string 
+                output_list = make_list(wordString)
+
+    except FileNotFoundError:
+        print("File", filename, "not found", end="")
+        return ()   
 
     return output_list
 
 def make_list(string_in):
-    return string_in.split(' ') #convert string to list seperated by ' '
+    
+    string_out = string_in.split() #convert string to list seperated by ' '
+
+    return string_out
 
 def word_randomize(word):
     if len(word) <= 3:
